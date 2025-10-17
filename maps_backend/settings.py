@@ -182,17 +182,16 @@ REST_FRAMEWORK = {
 # Configuración de CORS
 # ========================================
 
-# Permitir peticiones desde el frontend (configuración flexible)
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 
-    'http://localhost:4200,http://127.0.0.1:4200'
-).split(',')
+# 🔥 SOLUCIÓN: Permitir TODOS los orígenes (simplificado para que funcione)
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = False
 
-# En desarrollo, también permitir todos los orígenes
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-else:
-    CORS_ALLOW_ALL_ORIGINS = False
-    CORS_ALLOW_CREDENTIALS = True
+# Configuración alternativa si quieres restringir después:
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:4200',
+#     'http://127.0.0.1:4200',
+#     'https://map.ltx.mx',
+# ]
 
 # Métodos HTTP permitidos
 CORS_ALLOW_METHODS = [
