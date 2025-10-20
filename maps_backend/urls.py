@@ -39,12 +39,22 @@ def api_root(request):
     })
 
 
+def healthz(request):
+    """
+    Health check global para monitoreo (útil para UptimeRobot / Render)
+    GET /healthz/
+    """
+    return JsonResponse({'status': 'ok'})
+
+
 urlpatterns = [
     # Panel de administración
     path('admin/', admin.site.urls),
     
     # Raíz de la API
     path('', api_root, name='api-root'),
+    # Health check global
+    path('healthz/', healthz, name='healthz-root'),
     
     # API de marcadores
     path('api/markers/', include('markers.urls')),
