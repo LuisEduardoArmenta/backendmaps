@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Marker
 from .serializers import MarkerSerializer
+from django.http import JsonResponse
 
 
 class MarkerViewSet(viewsets.ModelViewSet):
@@ -33,6 +34,9 @@ class MarkerViewSet(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'nombre', 'categoria']  # Campos para ordenar
     ordering = ['-created_at']  # Orden por defecto: más recientes primero
     
+    # healthz moved to module level so it can be imported from urls.py
+    
+
     @action(detail=False, methods=['get'])
     def categorias(self, request):
         """
@@ -102,3 +106,11 @@ class MarkerViewSet(viewsets.ModelViewSet):
             'message': f'{len(markers)} marcadores creados exitosamente',
             'data': MarkerSerializer(markers, many=True).data
         }, status=status.HTTP_201_CREATED)
+
+
+def healthz(request):
+    """
+    Endpoint de salud a nivel de módulo para uso por herramientas de monitoreo.
+    GET /api/markers/healthz/
+    """
+    return JsonResponse({'status': 'ok'})
