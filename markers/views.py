@@ -113,4 +113,4 @@ def healthz(request):
     Endpoint de salud a nivel de módulo para uso por herramientas de monitoreo.
     GET /api/markers/healthz/
     """
-    return JsonResponse({'status': 'ok'})
+    return JsonResponse({'status': 'ok'}, status=200)
